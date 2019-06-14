@@ -28,9 +28,7 @@ class Body extends Component {
 
     //TODO esse isShowingDialog está sempre true, ele não reflete o estado do dialog
     showFormDialog() {
-        console.log('Aparece meu fi!')
         this.setState(state => ({ isShowingDialog: true }))
-        console.log(this.state)
     }
 
     render() {
