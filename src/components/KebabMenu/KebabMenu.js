@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreVert from '@material-ui/icons/MoreVert'
@@ -6,37 +6,53 @@ import IconButton from '@material-ui/core/IconButton';
 import { withStyles } from '@material-ui/core'
 import styles from './styles'
 
-const KebabMenu = ({ menuItens }) => {
-    const [anchorEl, setAnchorEl] = React.useState(null);
+class KebabMenu extends Component {
+    constructor(props) {
+        super(props)
 
-    function handleClick(event) {
-        setAnchorEl(event.currentTarget);
+        this.state = {
+            anchorEl: null
+        }
+
+        this.handleClick = this.handleClick.bind(this)
+        this.handleClose = this.handleClose.bind(this)
     }
 
-    function handleClose() {
-        setAnchorEl(null);
+    handleClick(event) {
+        //TODO perguntar se tem uma maneira melhor de fazer
+        const { currentTarget } = event
+        this.setState(state => {
+            return { anchorEl: currentTarget }
+        })
     }
 
-    function renderMenuItens(menuItens) {
-        return menuItens.map(menuItem => <MenuItem onClick={handleClose}>{menuItem.text}</MenuItem>)
+    handleClose() {
+        this.setState(state => ({ anchorEl: null }))
     }
 
-    return (
-        <div>
-            <IconButton aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-                <MoreVert />
-            </IconButton>
-            <Menu
-                id="simple-menu"
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-            >
-                {renderMenuItens(menuItens)}
-            </Menu>
-        </div>
-    );
+    renderMenuItens(menuItens) {
+        return menuItens.map(menuItem => <MenuItem onClick={this.handleClose}>{menuItem.text}</MenuItem>)
+    }
+
+    render() {
+        return (
+            <div>
+                <IconButton aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleClick}>
+                    <MoreVert />
+                </IconButton>
+                <Menu
+                    id="simple-menu"
+                    anchorEl={this.state.anchorEl}
+                    keepMounted
+                    open={Boolean(this.state.anchorEl)}
+                    onClose={this.handleClose}
+                >
+                    {this.renderMenuItens(this.props.menuItens)}
+                </Menu>
+            </div>
+        );
+    }
+
 }
 
 export default withStyles(styles)(KebabMenu)
