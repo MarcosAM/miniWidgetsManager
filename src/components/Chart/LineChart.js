@@ -3,6 +3,7 @@ import Chart from './Chart'
 
 //TODO deletar
 import Button from '@material-ui/core/Button'
+import FormDialog from './FormDialog'
 
 
 class LineChart extends Component {
@@ -35,6 +36,7 @@ class LineChart extends Component {
             <div>
                 <Chart data={this.state} />
                 <Button onClick={() => this.updateChartData([3, 2, 1])} >Gangorra</Button>
+                <FormDialog />
             </div>
         )
     }
