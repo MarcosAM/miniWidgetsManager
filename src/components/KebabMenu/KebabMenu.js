@@ -16,6 +16,7 @@ class KebabMenu extends Component {
 
         this.handleClick = this.handleClick.bind(this)
         this.handleClose = this.handleClose.bind(this)
+        this.handleMenuItemClick = this.handleMenuItemClick.bind(this)
     }
 
     handleClick(event) {
@@ -30,8 +31,13 @@ class KebabMenu extends Component {
         this.setState(state => ({ anchorEl: null }))
     }
 
+    handleMenuItemClick(fun) {
+        fun()
+        this.handleClose()
+    }
+
     renderMenuItens(menuItens) {
-        return menuItens.map(menuItem => <MenuItem onClick={this.handleClose}>{menuItem.text}</MenuItem>)
+        return menuItens.map(menuItem => <MenuItem onClick={(e) => this.handleMenuItemClick(menuItem.click)}>{menuItem.text}</MenuItem>)
     }
 
     render() {

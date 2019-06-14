@@ -10,10 +10,14 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 class FormDialog extends Component {
     constructor(props) {
         super(props)
-        //TODO perguntar se eu posso setar isso um state com uma props
+
         this.state = {
-            open: props.isShowing
+            open: false
         }
+    }
+
+    componentWillReceiveProps(newProps) {
+        this.setState({ open: newProps.isShowing })
     }
 
     handleClickOpen() {
