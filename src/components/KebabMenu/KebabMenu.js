@@ -6,7 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { withStyles } from '@material-ui/core'
 import styles from './styles'
 
-const KebabMenu = () => {
+const KebabMenu = ({ menuItens }) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     function handleClick(event) {
@@ -15,6 +15,10 @@ const KebabMenu = () => {
 
     function handleClose() {
         setAnchorEl(null);
+    }
+
+    function renderMenuItens(menuItens) {
+        return menuItens.map(menuItem => <MenuItem onClick={handleClose}>{menuItem.text}</MenuItem>)
     }
 
     return (
@@ -29,9 +33,7 @@ const KebabMenu = () => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
-                <MenuItem onClick={handleClose}>Logout</MenuItem>
+                {renderMenuItens(menuItens)}
             </Menu>
         </div>
     );
